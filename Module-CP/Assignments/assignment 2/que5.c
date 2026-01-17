@@ -9,18 +9,19 @@ int main(){
     scanf("%d",&purchase);
     if(stud=='y'){
         if(purchase>500){
-            dis = 0.20f*500;
+            dis = 0.20f*purchase;
             printf("%f",dis);
           }else{
             if(purchase<500){
-                 dis = 0.10*500;
+                 dis = 0.10*purchase;
+                printf("%f",dis);
             }
           }
 
     }
     if(stud=='n'){
         if(purchase>600){
-            dis = 0.15*500;
+            dis = 0.15*purchase;
             printf("%f",dis);
           }else{
             printf("No Discount.");
@@ -28,5 +29,6 @@ int main(){
 
     }
     
+
 
 }
