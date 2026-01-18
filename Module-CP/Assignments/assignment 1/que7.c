@@ -1,21 +1,17 @@
 #include<stdio.h>
 int main(){
-    int salary=5000;
+    int basic=5500;
     float da,ta,rha,total;
-    if(salary<=5000){
-        da=(10.0/100)*salary;
-        ta=(20.0/100)*salary;
-        rha=(25.0/100)*salary;
-}else{
-        da=(15.0/100)*salary;
-        ta=(25.0/100)*salary;
-        rha=(30.0/100)*salary;
+    if(basic<=5000){
+        da = 0.10*basic;
+        ta = 0.20*basic;
+        rha =0.25*basic;
+    }else{
+        da = 0.15*basic;
+        ta = 0.25*basic;
+        rha =0.30*basic;
 
-}
-total=da+ta+rha;
-printf("da is %f\n",da);
-printf("ta is %f\n",ta);
-printf("rha is %f\n",rha);
-printf("Total will be: %f",total);
-    
+    }
+    total = da+ta+rha;
+    printf("total : %f",total);
 }
