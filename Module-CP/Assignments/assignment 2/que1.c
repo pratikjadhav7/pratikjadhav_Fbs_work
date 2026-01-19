@@ -1,4 +1,4 @@
-#include<stdio.h>
+se#include<stdio.h>
 int main(){
     int num1,num2;
     char op;
@@ -25,8 +25,11 @@ int main(){
                if(num1*num2){
                 res = num1*num2;
                     printf("%d * %d = %f",num1,num2,res);
-               } 
+               }else{
+                   printf("---Invalid---");
+               }
             }
         }
     }
+
 }
