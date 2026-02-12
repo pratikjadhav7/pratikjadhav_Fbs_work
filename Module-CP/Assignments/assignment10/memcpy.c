@@ -1,0 +1,8 @@
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char src[]="Hello";
+    char dest[20];
+    memcpy(dest, src, strlen(src)+1);
+    printf("%s", dest);
+}
