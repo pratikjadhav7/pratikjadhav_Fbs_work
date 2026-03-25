@@ -49,7 +49,8 @@ void searchByID(){
             printf("Found:%s by %s",b[i].name,b[i].author);
         } 
     }
-    printf("Not Found");
+     if(found==0)
+    printf("Book Not Found");
 }
 ///////////////////////////////////////////////////////////////
 void searchByName(){
@@ -62,10 +63,10 @@ void searchByName(){
         if(strcmp(b[i].name,name)==0){
             found=1;
             printf("Found:%s by %s",b[i].name,b[i].author);
-        }else{
-            printf("Not Found");
         }
     }
+     if(found==0)
+     printf("Book Not Found");
 }
 //////////////////////////////////////////////////////////
 void removeBook() {
@@ -140,6 +141,9 @@ void sortByPrice(){
         }
     }
     printf("Sorted By Price");
+     for(int i=0;i<count;i++){
+        printf("%s\n", b[i].name);
+    }
 }
 /////////////////////////////////////////////
 void sortByRating(){
@@ -154,6 +158,9 @@ void sortByRating(){
         }
     }
     printf("Sorted By Rating");
+    for(int i=0;i<count;i++){
+    printf("%s\n", b[i].name);
+    }
 }
 /////////////////////////////////////////////
 int main(){
