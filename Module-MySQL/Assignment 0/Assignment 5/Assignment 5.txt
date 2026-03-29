@@ -1,0 +1,472 @@
+Q1) Write an SQL query to list all books written by author 'Loni' with price less than 600.
+
+mysql> select * from books
+    -> where author_name="Loni" and cost<600;
+
+
+
+Q2) Write an SQL query to display issue details of books that are not returned yet.
+
+mysql> select * from issue
+    -> where return_date is null;
+
+
+
+Q3) Write an SQL query to update all blank return_date values to '2025-12-31' excluding issue
+IDs 7005 and 7006.
+
+mysql> update issue set return_date="2025-10-31"
+    -> where return_date is null
+    -> and id not in(7005,7006);
+
+
+
+Q4) Write an SQL query to display issue details of books issued for more than 30 days.
+
+mysql> select * from issue
+    -> where datediff(curdate(),issue_date) > 30;
+
+
+
+Q5) Write an SQL query to list all books priced between 500 and 750 and belonging to category
+'Database'.
+
+mysql> select * from books
+    -> where cost between 500 and 750
+    -> and category="Database";
+
+
+
+Q6) Write an SQL query to list all books belonging to categories Science, Database, Fiction, or
+Management.
+
+mysql> select * from books
+    -> where category in("Science","Database","Fiction","Management");
+
+
+
+Q7) Write an SQL query to list all members in descending order of penalty amount.
+
+mysql> select * from members
+    -> order by penalty amount desc; 
+
+
+
+Q8) Write an SQL query to update book number 103 with cost = 300 and category = 'RDBMS'.
+
+mysql> update books set cost=300 and category="RDBMS"
+    -> where book_no=103;
+
+
+
+Q9) Write an SQL query to list all books sorted by category (ascending) and price (descending).
+
+mysql> select * from books
+    -> order by category asc,cost desc;
+
+
+
+Q10) Write an SQL query to list all books whose name contains the word 'SQL'.
+
+mysql> select * from books
+    -> where book_name like "%sql%";
+
+
+
+Q11) Write an SQL query to display Lib_Issue_Id, Issue_Date, Return_Date and number of days
+the book was issued.
+
+mysql> select lib_issue_id,Issue_date<Return_date
+    -> datediff(return_date.issue_date)
+    -> from library_issue;
+
+
+
+Q12) Write an SQL query to list member details ordered by their joining date.
+
+mysql> select * from members
+    -> order by joining_date;
+
+
+
+
+Q13) Write an SQL query to count total books issued to member ID 1.
+
+mysql> select count(book_no) from library_issue
+    -> where member_id=1;
+
+
+
+Q14) Write an SQL query to display total penalty due for all members.
+
+mysql> select sum(penalty) as "Total_Penalty_Due" from library_issue;
+
+
+
+Q15) Write an SQL query to display total number of members.
+
+mysql> select count(*) as "Total_Members" from members;
+
+
+
+
+Q16) Write an SQL query to display total number of books issued.
+
+mysql> select count(*) as "Total Books" from books;
+
+
+
+
+Q17) Write an SQL query to display average membership fees paid by all members.
+
+mysql> select avg(membership_fees) from members;
+
+
+
+
+Q18) Write an SQL query to display each category and number of books in that category.
+
+mysql> select category,count(book_no) from books
+    -> group by category;
+
+
+
+
+Q19) Write an SQL query to display book_no and number of times each book is issued, sorted
+by count descending.
+
+mysql> select book_no,count(*) from library_issue
+    -> group by book_no
+    -> order by issue_count desc;
+
+
+
+Q20) Write an SQL query to display maximum, minimum, total and average penalty amount
+from Member table.
+
+mysql> select min(penalty),max(penalty),avg(penalty) from members;
+
+
+
+
+Q21) Write an SQL query to display member IDs who have issued more than 2 books.
+
+mysql> select member_id from library_issue
+    -> group by mamber_id
+    -> having count(*) >2;
+
+
+
+
+Q22) Write an SQL query to display member_id, book_no and number of times the same book
+was issued by that member.
+
+mysql> select member_id,book_no,count(*) from issue
+    -> group by member_id,book_no;
+
+
+
+
+Q23) Write an SQL query to display month-wise count of books issued, sorted by count
+descending.
+
+mysql> select month(issue_date) AS issue_month,
+    -> count(book_no) AS books_issued_count from Issue
+    -> group by month(issue_date)
+    -> order by books_issued_count desc;
+
+
+
+Q24) Write an SQL query to list book numbers of books that have never been issued.
+
+mysql> select book_no
+    -> from books
+    -> where book_no not in(select book_no from issue);
+
+
+
+Q25) Write an SQL query to list member IDs who exist in Member table and have issued at least
+one book.
+
+mysql> select member_id
+    -> from member
+    -> where member_id in(select member_id from issue);
+
+
+
+Q26) Write an SQL query to display member ID with highest and lowest number of books
+issued.
+
+mysql> select min(count(book_no)),max(count(book_no)) from member;
+
+
+
+Q27) Write an SQL query to list issue details for books issued in December or July.
+
+mysql> select * from issue
+    -> where month(issue_date) in (7,12);
+
+
+
+Q28) Write an SQL query to display Book_No, Book_Name and Issue_Date for books issued in
+December and belonging to category Database.
+
+mysql> select book_no,book_name,issue_date from books
+    -> join issue on b.book_no=i.book_no
+    -> where month(issue_date)=12 and category="Database";
+
+
+
+Q29) Write an SQL query to display Member_Id, Member_Name and Max_Books_Allowed
+sorted by Max_Books_Allowed descending.
+
+mysql> select member_id,member_name,max_books_allowed from member
+    -> order by max_books_allowed desc;
+
+
+
+Q30) Write an SQL query to list Book_No, Book_Name, Issue_Date and Return_Date for all
+books issued by member 'Richa Sharma'.
+
+mysql> select b.book_no,b.book_name,i.issue_date,i.return_date from book as b
+    -> join issue i on b.book_no=i.book_no
+    -> join member m on i.member_id=m.member_id
+    -> where m.member_name="Richa Sharma";
+
+
+
+Q31) Write an SQL query to list details of members who have issued books in Database
+category.
+
+mysql> select * from members m
+    -> join issue i on m.member_id = i.member_id
+    -> join book b on i.book_no = b.book_no
+    -> where b.category="Database";
+
+
+
+Q32) Write an SQL query to list books having the highest price in each category.
+
+mysql> select book_no, book_name, category, price from Book b1
+    -> where price = (select max(price) from Book b2
+    -> where b1.category = b2.category);
+
+
+
+
+Q33) Write an SQL query to list issue details where issue_date is outside the membership period
+of that member.
+
+mysql> select i.* from Issue i
+    -> join Member m ON i.member_id = m.member_id
+    -> where i.issue_date < m.membership_start_date
+    -> or i.issue_date > m.membership_end_date;
+
+
+
+Q34) Write an SQL query to list members who have not issued any book so far.
+
+mysql> select m.*
+    -> from Member m
+    -> left join Issue i ON m.member_id = i.member_id
+    -> where i.member_id is NULL;
+
+
+
+
+Q35) Write an SQL query to list members who have issued the same book as issued by 'Garima
+Sen'.
+
+SELECT DISTINCT m.member_id, m.member_name
+FROM Member m
+JOIN Issue i ON m.member_id = i.member_id
+WHERE i.book_no IN (
+    SELECT i2.book_no
+    FROM Issue i2
+    JOIN Member m2 ON i2.member_id = m2.member_id
+    WHERE m2.member_name = 'Garima Sen');
+
+
+
+Q36) Write an SQL query to list book name and price of books not returned for more than 30
+days.
+
+SELECT b.book_name, b.price
+FROM Book b
+JOIN Issue i ON b.book_no = i.book_no
+WHERE i.return_date IS NULL
+  AND DATEDIFF(CURDATE(), i.issue_date) > 30;
+
+
+
+
+Q37) Write an SQL query to list authors who have written more than one book.
+
+SELECT author
+FROM Book
+GROUP BY author
+HAVING COUNT(*) > 1;
+
+
+
+
+Q38) Write an SQL query to display member(s) who issued the maximum and minimum number
+of books.
+
+SELECT m.member_id, m.member_name, COUNT(*) total
+FROM Member m
+JOIN Issue i ON m.member_id = i.member_id
+GROUP BY m.member_id, m.member_name
+HAVING total = (SELECT MAX(cnt) FROM (SELECT COUNT(*) cnt FROM Issue GROUP BY member_id) x)
+    OR total = (SELECT MIN(cnt) FROM (SELECT COUNT(*) cnt FROM Issue GROUP BY member_id) x);
+
+
+
+Q39) Write an SQL query to list details of top 3 highest priced books.
+mysql> select * from  books
+    -> order by price disc
+    -> limit 3;
+
+
+
+
+Q40) Write an SQL query to calculate total cost of books currently issued but not returned.
+
+mysql> select sum(b.cost) from book b
+    -> join issue i on b.book_no=i.book_no
+    -> where i.return_date is NULL;
+
+
+
+
+Q41) Write an SQL query to display the book issued maximum number of times.
+
+SELECT b.book_no, b.book_name, COUNT(i.book_no) AS issue_count
+FROM Book b
+JOIN Issue i ON b.book_no = i.book_no
+GROUP BY b.book_no, b.book_name
+HAVING COUNT(i.book_no) = (
+    SELECT MAX(cnt)
+    FROM (
+        SELECT COUNT(book_no) AS cnt
+        FROM Issue
+        GROUP BY book_no)t);
+
+
+
+
+Q42) Write an SQL query to count how many books are issued to Lifetime members.
+
+mysql> select COUNT(*) AS total_books
+    -> from issue i
+    -> join Member m ON i.member_id = m.member_id
+    -> where m.membership_type = 'Lifetime';
+
+
+
+Q43) Write an SQL query to display each membership type and number of members in that type.
+
+SELECT membership_type, COUNT(*) AS total_members
+FROM Member
+GROUP BY membership_type;
+
+
+
+
+Q44) Write an SQL query to list first 5 members who joined the library.
+
+mysql> select * from members
+    -> order by joining_date asc
+    -> limit 5;
+
+
+
+
+Q45) Write an SQL query to list members (with membership type) who issued books during
+December month.
+
+mysql> SELECT DISTINCT m.member_id, m.member_name, m.membership_type from member m
+    -> JOIN Issue i ON m.member_id = i.member_id
+    -> WHERE MONTH(i.issue_date) = 12;
+
+
+
+
+Q46) Write an SQL query to list members who have not returned books yet.
+
+mysql> select distinct m.member_id,m.member_name from member m
+    -> JOIN Issue i ON m.member_id = i.member_id
+    -> where i.return_date is null:
+
+
+
+Q47) Write an SQL query to list members who joined on the same date as 'Garima Sen'.
+
+mysql> SELECT member_id, member_name, join_date FROM Member
+    -> WHERE join_date = (SELECT join_date FROM Member WHERE member_name = "Garima Sen");
+
+
+
+
+Q48) Write an SQL query to list members who issued books written by author 'Loni' in
+December.
+
+mysql> SELECT DISTINCT m.member_id, m.member_name FROM Member m
+    -> JOIN Issue i ON m.member_id = i.member_id
+    -> JOIN Book b ON i.book_no = b.book_no
+    -> WHERE b.author = "Loni"
+    -> AND MONTH(i.issue_date) = 12;
+
+
+
+
+Q49) Write an SQL query to list authors whose books are least issued by Lifetime members.
+
+SELECT b.author, COUNT(*) AS issue_count
+FROM Book b
+JOIN Issue i ON b.book_no = i.book_no
+JOIN Member m ON i.member_id = m.member_id
+WHERE m.membership_type = 'Lifetime'
+GROUP BY b.author
+HAVING COUNT(*) = (
+    SELECT MIN(cnt)
+    FROM (
+        SELECT COUNT(*) AS cnt
+        FROM Book b2
+        JOIN Issue i2 ON b2.book_no = i2.book_no
+        JOIN Member m2 ON i2.member_id = m2.member_id
+        WHERE m2.membership_type = 'Lifetime'
+        GROUP BY b2.author) t);
+
+
+
+
+Q50) Write an SQL query to list members who issued books costing more than 300 and written
+by author 'Scott Urman'.
+
+mysql> SELECT DISTINCT m.member_id, m.member_name FROM Member m
+    -> JOIN Issue i ON m.member_id = i.member_id 
+    -> JOIN Book b ON i.book_no = b.book_no
+    -> WHERE b.price > 300
+    -> AND b.author = "Scott Urman";
+
+
+
+
+Q51) Write an SQL query to list Lifetime members who joined in year 2006 and issued only one
+book.
+
+mysql> SELECT m.member_id, m.member_name
+    -> FROM Member m
+    -> JOIN Issue i ON m.member_id = i.member_id
+    -> WHERE m.membership_type = 'Lifetime'
+    -> AND YEAR(m.join_date) = 2006
+    -> GROUP BY m.member_id, m.member_name
+    -> HAVING COUNT(i.book_no) = 1;
+
+
+
+Q52) Write an SQL query to update penalty amount of member 'Garima Sen' to 100.
+mysql> UPDATE Member
+    -> SET penalty_amount = 100
+    -> WHERE member_name = 'Garima Sen';
