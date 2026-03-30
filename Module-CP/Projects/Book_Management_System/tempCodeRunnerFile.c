@@ -1,0 +1,14 @@
+  printf("\n======BOOK MANAGEMENT SYSTEM======");
+        printf("\n1. Add Book");
+        printf("\n2. Remove Book");
+        printf("\n3. Search by ID");
+        printf("\n4. Search by Name");
+        printf("\n5. Show Author Books");
+        printf("\n6. Show category Books");
+        printf("\n7. Update  Book");
+        printf("\n8. Sort by Price");
+        printf("\n9. Sort by Rating Book");
+        printf("\n10. Display All");
+        printf("\n0.  EXIT");
+        printf("\nEnter Choice:");
+        scanf("\n%d",&choice);
