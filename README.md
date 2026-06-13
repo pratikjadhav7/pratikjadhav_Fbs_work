@@ -9,10 +9,12 @@ This repository represents my 6–7 months of consistent learning, practice, and
 🔹 C
 🔹 C++
 🔹 Core Java
+🔹 Java DSA
 🌐 Web Development
 🔹 HTML5
 🔹 CSS3
 🔹 JavaScript
+🔹 React JS
 🗄️ Database
 🔹 MySQL
 
