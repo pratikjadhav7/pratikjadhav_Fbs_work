@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f2f4f8;
+        }
+
+        .container {
+            width: 700px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, .2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .row {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        #msg {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Student Registration</h2>
+
+        <form id="studentForm">
+
+            <div class="row">
+                <label>FRN</label>
+                <input type="text" id="frn" required>
+            </div>
+
+            <div class="row">
+                <label>Student Name</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="row">
+                <label>House No</label>
+                <input type="text" id="houseno">
+            </div>
+
+            <div class="row">
+                <label>Lane No</label>
+                <input type="text" id="laneno">
+            </div>
+
+            <div class="row">
+                <label>City</label>
+                <input type="text" id="city">
+            </div>
+
+            <div class="row">
+                <label>State</label>
+                <input type="text" id="state">
+            </div>
+
+            <div class="row">
+                <label>Pincode</label>
+                <input type="number" id="pincode">
+            </div>
+
+            <div class="row">
+                <label>Select Batch</label>
+
+                <select id="batch">
+                    <option>Loading...</option>
+                </select>
+
+            </div>
+
+            <button type="submit">Add Student</button>
+
+        </form>
+
+        <div id="msg"></div>
+
+    </div>
+
+    <script>
+
+        //-----------------------
+        // Load Batch List
+        //-----------------------
+
+        fetch("http://localhost:8080/hibernatemappingg/batchapi/displayallbatches")
+            .then(res => res.json())
+            .then(result => {
+
+                let batch = document.getElementById("batch");
+
+                batch.innerHTML = "<option value=''>Select Batch</option>";
+
+                result.forEach(b => {
+
+                    batch.innerHTML += `
+<option value="${b.batchId}">
+${b.batchName}
+</option>
+`;
+
+                });
+
+            });
+
+
+        //-----------------------
+        // Add Student
+        //-----------------------
+
+        document.getElementById("studentForm").addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            let student = {
+
+                frn: document.getElementById("frn").value,
+
+                name: document.getElementById("name").value,
+
+                address: {
+
+                    houseno: document.getElementById("houseno").value,
+
+                    laneno: document.getElementById("laneno").value,
+
+                    city: document.getElementById("city").value,
+
+                    state: document.getElementById("state").value,
+
+                    pincode: parseInt(document.getElementById("pincode").value)
+
+                },
+
+                batch: {
+
+                    batchId: document.getElementById("batch").value
+
+                }
+
+            };
+
+
+            fetch("http://localhost:8080/hibernatemappingg/batchapi/addstudent", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(student)
+
+            })
+
+                .then(res => res.json())
+
+                .then(result => {
+
+                    document.getElementById("msg").innerHTML = result.msg;
+
+                    document.getElementById("studentForm").reset();
+
+                });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student Management</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+rat din dhyas tuza mazo mala bhul r chikhlat ugavla 
+.container{
+    width:700px;
+    margin:40px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.row{
+    display:flex;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.col{
+    flex:1;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#0d6efd;
+    color:white;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0b5ed7;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Student Registration</h2>
+
+<form>
+
+<div class="row">
+    <div class="col">
+        <label>FRN</label>
+        <input type="text" id="frn">
+    </div>
+
+    <div class="col">
+        <label>Name</label>
+        <input type="text" id="name">
+    </div>
+</div>
+
+<h3>Address Details</h3>
+<br>
+
+<div class="row">
+    <div class="col">
+        <label>House No</label>
+        <input type="text" id="houseno">
+    </div>
+
+    <div class="col">
+        <label>Lane No</label>
+        <input type="text" id="laneno">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <label>City</label>
+        <input type="text" id="city">
+    </div>
+
+    <div class="col">
+        <label>State</label>
+        <input type="text" id="state">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <label>Pincode</label>
+        <input type="number" id="pincode">
+    </div>
+
+    <div class="col">
+        <label>Select Batch</label>
+
+        <select id="batch">
+            <option value="">Select Existing Batch</option>
+        </select>
+
+    </div>
+</div>
+
+<button type="button" onclick="saveStudent()">
+    Save Student
+</button>
+
+</form>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
